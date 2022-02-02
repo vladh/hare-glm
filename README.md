@@ -5,5 +5,4 @@ This is an OpenGL-compatible linear algebra library for
 
 ## Status
 
-There is currently barely anything implemented in this library. Progress will
-come slowly.
+This library currently only has bare fundamentals. Progress will come slowly.
