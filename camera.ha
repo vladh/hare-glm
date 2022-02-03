@@ -1,5 +1,32 @@
 use math;
 
+export fn lookat(eye: *v3, center: *v3, up: *v3) m4 = {
+	const f = v3_sub(center, eye);
+	v3_normalize(&f);
+	const s = v3_crossn(&f, up);
+	const u = v3_cross(&s, &f);
+
+	const res = m4_make(1.0);
+	res[0][0] = s[0];
+	res[0][1] = u[0];
+	res[0][2] = -f[0];
+	res[1][0] = s[1];
+	res[1][1] = u[1];
+	res[1][2] = -f[1];
+	res[2][0] = s[2];
+	res[2][1] = u[2];
+	res[2][2] = -f[2];
+	res[3][0] = -v3_dot(&s, eye);
+	res[3][1] = -v3_dot(&u, eye);
+	res[3][2] = v3_dot(&f, eye);
+	res[0][3] = 0.0;
+	res[1][3] = 0.0;
+	res[2][3] = 0.0;
+	res[3][3] = 1.0;
+	return res;
+};
+
+
 export fn perspective(
 	m: *m4,
 	fovy_in_deg: f32,
@@ -9,7 +36,7 @@ export fn perspective(
 ) void = {
 	m4_zero(m);
 
-	const f = 1.0 / math::tanf64(fovy_in_deg * 0.5): f32;
+	const f = 1.0 / math::tanf64(fovy_in_deg * 0.5);
 	const f1 = 1.0 / (znear - zfar);
 
 	m[0][0] = f / aspect_ratio;
@@ -17,30 +44,4 @@ export fn perspective(
 	m[2][2] = (znear + zfar) * f1;
 	m[2][3] = -1.0;
 	m[3][2] = 2.0 * znear * zfar * f1;
-
-	// const ymax = znear * (math::tanf64(fovy_in_deg * math::PI / 360.0): f32);
-	// const xmax = ymax * aspect_ratio;
-	// frustum(m, -xmax, xmax, -ymax, ymax, znear, zfar);
 };
-
-// export fn frustum(
-// 	m: *[16]f32,
-// 	left: f32,
-// 	right: f32,
-// 	bottom: f32,
-// 	top: f32,
-// 	znear: f32,
-// 	zfar: f32
-// ) void = {
-// 	let t0 = 2.0 * znear;
-// 	let t1 = right - left;
-// 	let t2 = top - bottom;
-// 	let t3 = zfar - znear;
-// 	m[0] = t0 / t1;
-// 	m[5] = t0 / t2;
-// 	m[8] = (right + left) / t1;
-// 	m[9] = (top + bottom) / t2;
-// 	m[10] = (-zfar - znear) / t3;
-// 	m[11] = -1.0;
-// 	m[14] = (-t0 * zfar) / t3;
-// };
