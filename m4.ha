@@ -1,7 +1,7 @@
 use fmt;
 use rt;
 
-export fn m4_make(diag: f32) m4 = {
+export fn m4_new(diag: f32) m4 = {
 	return [
 		[diag, 0.0, 0.0, 0.0],
 		[0.0, diag, 0.0, 0.0],
@@ -10,12 +10,12 @@ export fn m4_make(diag: f32) m4 = {
 	];
 };
 
-export fn m4_ident() m4 = {
-	return m4_make(1.0);
+export fn m4_new_ident() m4 = {
+	return m4_new(1.0);
 };
 
-export fn m4_zero() m4 = {
-	return m4_make(0.0);
+export fn m4_new_zero() m4 = {
+	return m4_new(0.0);
 };
 
 export fn m4_valptr(m: *m4) *const f32 = {
@@ -29,8 +29,8 @@ export fn m4_print(m: *m4) void = {
 	fmt::printfln("  {}, {}, {}, {} ]", m[0][3], m[1][3], m[2][3], m[3][3])!;
 };
 
-export fn m4_ident_to(m: *m4) *m4 = {
-	m4_zero_to(m);
+export fn m4_set_ident(m: *m4) *m4 = {
+	m4_set_zero(m);
 	m[0][0] = 1.0;
 	m[1][1] = 1.0;
 	m[2][2] = 1.0;
@@ -38,7 +38,7 @@ export fn m4_ident_to(m: *m4) *m4 = {
 	return m;
 };
 
-export fn m4_zero_to(m: *m4) *m4 = {
+export fn m4_set_zero(m: *m4) *m4 = {
 	rt::memset(m, 0, 4 * 4 * 4);
 	return m;
 };
@@ -85,7 +85,7 @@ export fn m4_mul_to(a: *m4, b: *m4, dest: *m4) void = {
 };
 
 export fn m4_mul(a: *m4, b: *m4) m4 = {
-	let res = m4_make(0.0);
+	let res = m4_new_zero();
 	m4_mul_to(a, b, &res);
 	return res;
 };

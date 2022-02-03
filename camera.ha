@@ -6,7 +6,7 @@ export fn lookat(eye: *v3, center: *v3, up: *v3) m4 = {
 	const s = v3_crossn(&f, up);
 	const u = v3_cross(&s, &f);
 
-	const res = m4_make(1.0);
+	const res = m4_new(1.0);
 	res[0][0] = s[0];
 	res[0][1] = u[0];
 	res[0][2] = -f[0];
@@ -34,7 +34,7 @@ export fn perspective(
 	znear: f32,
 	zfar: f32
 ) void = {
-	m4_zero_to(m);
+	m4_set_zero(m);
 
 	const f = 1.0 / math::tanf64(fovy_in_deg * 0.5);
 	const f1 = 1.0 / (znear - zfar);

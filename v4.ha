@@ -1,11 +1,15 @@
 use fmt;
 use math;
 
-export fn v4_make(x: f32, y: f32, z: f32, w: f32) v4 = {
+export fn v4_new(x: f32, y: f32, z: f32, w: f32) v4 = {
 	return [x, y, z, w];
 };
 
-export fn v4_zero() v4 = {
+export fn v4_new_fill(x: f32) v4 = {
+	return [x, x, x, x];
+};
+
+export fn v4_new_zero() v4 = {
 	return [0.0, 0.0, 0.0, 0.0];
 };
 
