@@ -5,6 +5,14 @@ export fn v3_make(x: f32, y: f32, z: f32) v3 = {
 	return [x, y, z];
 };
 
+export fn v3_zero() v3 = {
+	return [0.0, 0.0, 0.0];
+};
+
+export fn v3_copy(v: *v3) v3 = {
+	return [v[0], v[1], v[2]];
+};
+
 export fn v3_valptr(v: *v3) *const f32 = {
 	return &v[0];
 };
@@ -48,6 +56,19 @@ export fn v3_normalize(v: *v3) void = {
 	v3_scale(v, 1.0 / norm);
 };
 
+export fn v3_normalize_to(v: *v3, dest: *v3) void = {
+	const norm = v3_norm(v);
+
+	if (norm == 0.0) {
+		dest[0] = 0.0;
+		dest[1] = 0.0;
+		dest[2] = 0.0;
+		return;
+	};
+
+	v3_scale_to(v, 1.0 / norm, dest);
+};
+
 export fn v3_dot(a: *v3, b: *v3) f32 = {
 	return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 };
@@ -64,6 +85,12 @@ export fn v3_scale(v: *v3, s: f32) void = {
 	v[0] = v[0] * s;
 	v[1] = v[1] * s;
 	v[2] = v[2] * s;
+};
+
+export fn v3_scale_to(v: *v3, s: f32, dest: *v3) void = {
+	dest[0] = v[0] * s;
+	dest[1] = v[1] * s;
+	dest[2] = v[2] * s;
 };
 
 export fn v3_cross(a: *v3, b: *v3) v3 = {

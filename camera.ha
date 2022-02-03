@@ -34,7 +34,7 @@ export fn perspective(
 	znear: f32,
 	zfar: f32
 ) void = {
-	m4_zero(m);
+	m4_zero_to(m);
 
 	const f = 1.0 / math::tanf64(fovy_in_deg * 0.5);
 	const f1 = 1.0 / (znear - zfar);

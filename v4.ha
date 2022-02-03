@@ -5,6 +5,14 @@ export fn v4_make(x: f32, y: f32, z: f32, w: f32) v4 = {
 	return [x, y, z, w];
 };
 
+export fn v4_zero() v4 = {
+	return [0.0, 0.0, 0.0, 0.0];
+};
+
+export fn v4_copy(v: *v4) v4 = {
+	return [v[0], v[1], v[2], v[3]];
+};
+
 export fn v4_valptr(v: *v4) *const f32 = {
 	return &v[0];
 };
@@ -69,4 +77,11 @@ export fn v4_scale(v: *v4, s: f32) void = {
 	v[1] = v[1] * s;
 	v[2] = v[2] * s;
 	v[3] = v[3] * s;
+};
+
+export fn v4_scale_to(v: *v4, s: f32, dest: *v3) void = {
+	dest[0] = v[0] * s;
+	dest[1] = v[1] * s;
+	dest[2] = v[2] * s;
+	dest[3] = v[3] * s;
 };
