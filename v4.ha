@@ -17,12 +17,33 @@ export fn v4_copy(v: *v4) v4 = {
 	return [v[0], v[1], v[2], v[3]];
 };
 
+export fn v4_copy_to(v: *v4, dest: *v4) void = {
+	dest[0] = v[0];
+	dest[1] = v[1];
+	dest[2] = v[2];
+	dest[3] = v[3];
+};
+
 export fn v4_valptr(v: *v4) *const f32 = {
 	return &v[0];
 };
 
 export fn v4_print(v: v4) void = {
 	fmt::printfln("[ {}, {}, {}, {} ]", v[0], v[1], v[2], v[3])!;
+};
+
+export fn v4_negate(v: *v4) void = {
+	v[0] *= -1.0;
+	v[1] *= -1.0;
+	v[2] *= -1.0;
+	v[3] *= -1.0;
+};
+
+export fn v4_negate_to(v: *v4, dest: *v4) void = {
+	dest[0] = v[0] * -1.0;
+	dest[1] = v[1] * -1.0;
+	dest[2] = v[2] * -1.0;
+	dest[3] = v[3] * -1.0;
 };
 
 export fn v4_add(a: *v4, b: *v4) v4 = {
@@ -41,13 +62,6 @@ export fn v4_sub(a: *v4, b: *v4) v4 = {
 		a[2] - b[2],
 		a[3] - b[3],
 	];
-};
-
-export fn v4_muladds_to(v: *v4, s: f32, dst: *v4) void = {
-	dst[0] += v[0] * s;
-	dst[1] += v[1] * s;
-	dst[2] += v[2] * s;
-	dst[3] += v[3] * s;
 };
 
 export fn v4_normalize(v: *v4) void = {

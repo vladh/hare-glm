@@ -1,9 +1,14 @@
 use math;
 
+export fn translate_make(v: *v3) m4 = {
+	const mat = m4_new_ident();
+	v3_copy_to(v, glm::m4_col(&mat, 3));
+	return mat;
+};
+
 export fn translate(m: *m4, v: *v3) void = {
-	v4_muladds_to(glm::m4_col(m, 0), v[0], glm::m4_col(m, 3));
-	v4_muladds_to(glm::m4_col(m, 1), v[1], glm::m4_col(m, 3));
-	v4_muladds_to(glm::m4_col(m, 2), v[2], glm::m4_col(m, 3));
+	const mat = translate_make(v);
+	m4_mul_to(&mat, m, m);
 };
 
 export fn rotation_make(angle: f32, axis: *v3) m4 = {
@@ -39,7 +44,15 @@ export fn rotation_make(angle: f32, axis: *v3) m4 = {
 
 export fn rotate(m: *m4, angle: f32, axis: *v3) void = {
 	const rot = rotation_make(angle, axis);
-	m4_mul_to(m, &rot, m);
+	m4_mul_to(&rot, m, m);
+};
+
+export fn rotate_at(m: *m4, pivot: *v3, angle: f32, axis: *v3) void = {
+	const pivot_inv = v3_new_fill(0.0);
+	v3_negate_to(pivot, &pivot_inv);
+	translate(m, pivot);
+	rotate(m, angle, axis);
+	translate(m, &pivot_inv);
 };
 
 export fn scale_make(v: *v3) m4 = {
@@ -52,5 +65,5 @@ export fn scale_make(v: *v3) m4 = {
 
 export fn scale(m: *m4, v: *v3) void = {
 	const mat = scale_make(v);
-	m4_mul_to(m, &mat, m);
+	m4_mul_to(&mat, m, m);
 };
