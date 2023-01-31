@@ -97,7 +97,7 @@ export fn v4_scale(v: *v4, s: f32) void = {
 	v[3] = v[3] * s;
 };
 
-export fn v4_scale_to(v: *v4, s: f32, dest: *v3) void = {
+export fn v4_scale_to(v: *v4, s: f32, dest: *v4) void = {
 	dest[0] = v[0] * s;
 	dest[1] = v[1] * s;
 	dest[2] = v[2] * s;
