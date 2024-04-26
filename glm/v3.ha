@@ -94,7 +94,7 @@ export fn v3_norm2(v: *v3) f32 = {
 };
 
 export fn v3_norm(v: *v3) f32 = {
-	return math::sqrtf64(v3_norm2(v));
+	return math::sqrtf64(v3_norm2(v)): f32;
 };
 
 export fn v3_scale(v: *v3, s: f32) void = {

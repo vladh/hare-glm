@@ -87,7 +87,7 @@ export fn v4_norm2(v: *v4) f32 = {
 };
 
 export fn v4_norm(v: *v4) f32 = {
-	return math::sqrtf64(v4_norm2(v));
+	return math::sqrtf64(v4_norm2(v)): f32;
 };
 
 export fn v4_scale(v: *v4, s: f32) void = {

@@ -36,7 +36,7 @@ export fn perspective(
 ) void = {
 	m4_set_zero(m);
 
-	const f = 1.0 / math::tanf64(fovy_in_deg * 0.5);
+	const f = 1.0 / math::tanf64(fovy_in_deg * 0.5): f32;
 	const f1 = 1.0 / (znear - zfar);
 
 	m[0][0] = f / aspect_ratio;

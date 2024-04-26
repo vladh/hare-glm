@@ -13,7 +13,7 @@ export fn translate(m: *m4, v: *v3) void = {
 
 export fn rotation_make(angle: f32, axis: *v3) m4 = {
 	const r = m4_new_ident();
-	const c = math::cosf64(angle);
+	const c = math::cosf64(angle): f32;
 
 	let axisn = v3_new_zero();
 	let v = v3_new_zero();
@@ -21,7 +21,7 @@ export fn rotation_make(angle: f32, axis: *v3) m4 = {
 
 	v3_normalize_to(axis, &axisn);
 	v3_scale_to(&axisn, 1.0 - c, &v);
-	v3_scale_to(&axisn, math::sinf64(angle), &vs);
+	v3_scale_to(&axisn, math::sinf64(angle): f32, &vs);
 
 	v3_scale_to(&axisn, v[0], m4_col(&r, 0): *v3);
 	v3_scale_to(&axisn, v[1], m4_col(&r, 1): *v3);
