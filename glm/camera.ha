@@ -1,5 +1,29 @@
 use math;
 
+export fn ortho(
+	m: *m4,
+	left: f32,
+	right: f32,
+	bottom: f32,
+	top: f32,
+	znear: f32,
+	zfar: f32,
+) void = {
+	m4_set_zero(m);
+
+	const rl = 1.0 / (right - left);
+	const tb = 1.0 / (top - bottom);
+	const nf = -1.0 / (zfar - znear);
+
+	m[0][0] = 2.0 * rl;
+	m[1][1] = 2.0 * tb;
+	m[2][2] = 2.0 * nf;
+	m[3][0] =-(right + left) * rl;
+	m[3][1] =-(top + bottom) * tb;
+	m[3][2] = (zfar + znear) * nf;
+	m[3][3] = 1.0;
+};
+
 export fn lookat(eye: *v3, center: *v3, up: *v3) m4 = {
 	const f = v3_sub(center, eye);
 	v3_normalize(&f);
