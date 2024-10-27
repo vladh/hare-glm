@@ -1,6 +1,9 @@
 use fmt;
 use math;
 
+export def V3_ZERO: v3 = [0.0, 0.0, 0.0];
+export def V3_ONE: v3 = [1.0, 1.0, 1.0];
+
 export fn v3_new(x: f32, y: f32, z: f32) v3 = {
 	return [x, y, z];
 };
