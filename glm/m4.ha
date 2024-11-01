@@ -1,5 +1,4 @@
 use fmt;
-use rt;
 
 export def M4_IDENT: m4 = [
 	[1.0, 0.0, 0.0, 0.0],
@@ -53,7 +52,7 @@ export fn m4_set_ident(m: *m4) *m4 = {
 };
 
 export fn m4_set_zero(m: *m4) *m4 = {
-	rt::memset(m, 0, 4 * 4 * 4);
+	*m = M4_ZERO;
 	return m;
 };
 
