@@ -125,3 +125,21 @@ export fn v3_crossn(a: *v3, b: *v3) v3 = {
 	v3_normalize(&res);
 	return res;
 };
+
+export fn v3_rotate(v: *v3, angle: f32, axis: *v3) void = {
+	const c = math::cosf64(angle): f32;
+	const s = math::sinf64(angle): f32;
+
+	let k = *axis;
+	v3_normalize(&k);
+
+	let v1 = V3_ZERO;
+	v3_scale_to(v, c, &v1);
+	let v2 = v3_cross(&k, v);
+	v3_scale(&v2, s);
+
+	v1 = v3_add(&v1, &v2);
+
+	v3_scale_to(&k, v3_dot(&k, v) * (1.0 - c), &v2);
+	*v = v3_add(&v1, &v2);
+};
