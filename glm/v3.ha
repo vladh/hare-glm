@@ -16,6 +16,10 @@ export fn v3_new_zero() v3 = {
 	return [0.0, 0.0, 0.0];
 };
 
+export fn v3_equal(a: v3, b: v3) bool = {
+	return a[0] == b[0] && a[1] == b[1] && a[2] == b[2];
+};
+
 export fn v3_copy(v: *v3) v3 = {
 	return [v[0], v[1], v[2]];
 };
