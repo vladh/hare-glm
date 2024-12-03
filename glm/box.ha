@@ -9,3 +9,9 @@ export fn aabb_frustrum(box: *[2]v3, planes: *[6]v4) bool = {
 	};
 	return true;
 };
+
+export fn aabb_point(box: *[2]v3, point: *v3) bool = {
+	return	(point[0] >= box[0][0] && point[0] <= box[1][0]) &&
+		(point[1] >= box[0][1] && point[1] <= box[1][1]) &&
+		(point[2] >= box[0][2] && point[2] <= box[1][2]);
+};
